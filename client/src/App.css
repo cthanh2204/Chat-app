@@ -1,0 +1,25 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  color: black;
+  background-image: url("https://img.freepik.com/free-vector/gradient-background-vector-spring-green_53876-117272.jpg?size=626&ext=jpg&ga=GA1.1.2065855871.1722858864&semt=ais_hybrid");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.message {
+  width: 100%;
+  height: 100%;
+}
