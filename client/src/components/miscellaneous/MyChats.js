@@ -7,7 +7,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../../config/chatLogics";
 import GroupChatModal from "./GroupChatModal";
 function MyChats({ fetchAgain, setFetchAgain }) {
-  const [loggedUser, setLoggedUser] = useState();
+  const [loggedUser, setLoggedUser] = useState("");
   const { user, selectedChat, setSelectedChat, chat, setChat } =
     useContext(ChatContext);
 
@@ -30,7 +30,7 @@ function MyChats({ fetchAgain, setFetchAgain }) {
         status: "error",
         duration: 5000,
         isClosable: true,
-        possition: "top-left",
+        position: "top-left",
       });
     }
   };
@@ -39,6 +39,7 @@ function MyChats({ fetchAgain, setFetchAgain }) {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChat();
   }, [fetchAgain]);
+  console.log({ chat });
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

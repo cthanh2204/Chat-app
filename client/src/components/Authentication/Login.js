@@ -15,8 +15,8 @@ import { ChatContext } from "../../context/ChatProvider";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { setUser } = useContext(ChatContext);
   const toast = useToast();
@@ -55,7 +55,8 @@ const Login = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       if (localStorage.getItem("userInfo")) {
         setUser(data);
-        window.location.href = "/chats";
+        // window.location.href = "/chats";
+        history.push("/chats");
       } else {
         toast({
           title: "Failed to save user info",

@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { ChatContext } from "../context/ChatProvider";
 import { Box } from "@chakra-ui/react";
 import SideBar from "../components/miscellaneous/SideBar";
 import MyChats from "../components/miscellaneous/MyChats";
 import ChatBox from "../components/miscellaneous/ChatBox";
 const ChatPage = () => {
-  const { user, setUser } = useContext(ChatContext);
+  const { user } = useContext(ChatContext);
   const [fetchChat, setFetchChat] = useState();
 
   return (

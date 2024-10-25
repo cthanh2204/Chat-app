@@ -24,7 +24,7 @@ import UserListItem from "../User Avatar/UserListItem";
 
 const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [groupChatName, setGroupChatName] = useState();
+  const [groupChatName, setGroupChatName] = useState("");
   const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");

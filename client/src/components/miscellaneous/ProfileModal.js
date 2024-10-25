@@ -29,7 +29,7 @@ function ProfileModal({ user, children }) {
             justifyContent="center"
             alignItems="center"
             flexDirection="column">
-            <img src={user.pic} style={{ borderRadius: "50%" }} />
+            <img src={user.pic} style={{ borderRadius: "50%" }} alt="#" />
             <Text fontSize="2xl">Email: {user.email}</Text>
           </ModalBody>
           <ModalFooter>

@@ -16,11 +16,11 @@ import { ChatContext } from "../../context/ChatProvider";
 
 const SignUp = () => {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [pic, setPic] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const history = useHistory();
@@ -116,18 +116,8 @@ const SignUp = () => {
       });
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      if (localStorage.getItem("userInfo")) {
-        setUser(data);
-        window.location.href = "/chats";
-      } else {
-        toast({
-          title: "Failed to save user info",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top-right",
-        });
-      }
+      setUser(data);
+      history.push("/chats");
     } catch (error) {
       toast({
         title: "Register successfull",

@@ -21,10 +21,6 @@ const ChatProvider = ({ children }) => {
     }
   }, [history]);
 
-  if (loading) {
-    return <div>Loading...</div>; // Trạng thái chờ khi chưa có dữ liệu
-  }
-
   return (
     <ChatContext.Provider
       value={{

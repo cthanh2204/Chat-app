@@ -30,7 +30,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   } = useContext(ChatContext);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -68,7 +68,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         `/api/messages/${selectedChat._id}`,
         config
       );
-      console.log(data);
       setMessages(data);
       setLoading(false);
       socket.emit("join chat", selectedChat._id);
@@ -141,8 +140,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     });
   });
-
-  console.log(notifications);
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
@@ -227,9 +224,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 margin="auto"
               />
             ) : (
-              <div className="message">
+              <p className="message">
                 <ScrollAbleChat messages={messages} />
-              </div>
+              </p>
             )}
           </Box>
           <FormControl onKeyDown={sendMessage} mt={3}>
