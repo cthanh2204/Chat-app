@@ -19,7 +19,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChatContext } from "../../context/ChatProvider";
 import ProfileModal from "./ProfileModal";
@@ -35,7 +35,9 @@ function SideBar() {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState(false);
+  const [userDetail, setUserDetail] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const {
     user,
     setSelectedChat,
@@ -140,6 +142,33 @@ function SideBar() {
     }
   };
 
+  useEffect(() => {
+    const getUserDetail = async () => {
+      try {
+        setLoading(true);
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        };
+        const { data } = await axios.get("/api/users/detail", config);
+        setUserDetail(data);
+        setLoading(false);
+      } catch (error) {
+        toast({
+          title: "Error fetching the chat",
+          description: error.message || "Cannot find User",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top-left",
+        });
+      }
+    };
+    getUserDetail();
+  }, [userDetail.pic]);
+
   return (
     <>
       <Box
@@ -160,7 +189,7 @@ function SideBar() {
         </Tooltip>
 
         <Text fontSize="2xl">Chat App </Text>
-        <div>
+        <Box>
           <Menu>
             <MenuButton
               as={Button}
@@ -188,7 +217,7 @@ function SideBar() {
                     {notification.chat.isGroupChat
                       ? `New message in ${notification.chat.chatName}`
                       : `New message from ${getSenderName(
-                          user,
+                          userDetail,
                           notification.chat.users
                         )}`}
                   </MenuItem>
@@ -201,11 +230,14 @@ function SideBar() {
               <Avatar
                 size="sm"
                 cursor="pointer"
-                name={user.name}
-                src={user.pic}></Avatar>
+                name={userDetail.name}
+                src={userDetail.pic}></Avatar>
             </MenuButton>
             <MenuList>
-              <ProfileModal user={user}>
+              <ProfileModal
+                user={user}
+                userDetail={userDetail}
+                setUserDetail={setUserDetail}>
                 <MenuItem>
                   <FontAwesomeIcon
                     icon="fa-solid fa-user"
@@ -223,7 +255,7 @@ function SideBar() {
               </MenuItem>
             </MenuList>
           </Menu>
-        </div>
+        </Box>
       </Box>
 
       <Drawer

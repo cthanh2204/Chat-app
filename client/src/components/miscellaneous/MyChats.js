@@ -39,7 +39,7 @@ function MyChats({ fetchAgain, setFetchAgain }) {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChat();
   }, [fetchAgain]);
-  console.log({ chat });
+
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

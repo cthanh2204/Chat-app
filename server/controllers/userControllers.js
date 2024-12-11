@@ -1,6 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const { generateToken } = require("../config/generateToken");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
@@ -15,14 +23,15 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Email already exists");
   }
 
-  const user = await User.create({ name, email, password, pic });
+  const picURL = await cloudinary.uploader.upload(pic);
+  const user = await User.create({ name, email, password, pic: picURL?.url });
   if (user) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       password: user.password,
-      pic: user.pic,
+      pic: picURL?.url,
       accessToken: generateToken(user._id),
     });
   } else {
@@ -68,4 +77,42 @@ const getAllUsers = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
-module.exports = { registerUser, authUser, getAllUsers };
+
+const editUser = asyncHandler(async (req, res) => {
+  const { name, pic } = req.body;
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    let picURL;
+    if (pic) {
+      try {
+        picURL = await cloudinary.uploader.upload(pic);
+      } catch (error) {
+        console.log("Cloudinary upload fail", error);
+        return res.status(400).json({ message: "Invalid image upload" });
+      }
+    }
+
+    user.name = name || user.name;
+    user.pic = picURL?.url || user.pic;
+    const updateUser = await user.save();
+    res.status(200).json(updateUser);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+const detailUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      res.status(500).json({ message: "Cannot find User" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+module.exports = { registerUser, authUser, getAllUsers, editUser, detailUser };

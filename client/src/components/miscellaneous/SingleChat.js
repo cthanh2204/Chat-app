@@ -49,7 +49,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
-  }, []);
+  }, [user]);
 
   const fetchMessage = async () => {
     if (!selectedChat) {
@@ -208,7 +208,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           <Box
             display="flex"
             flexDirection="column"
-            justifyConten="flex-end"
+            justifyContent="flex-end"
             p={3}
             bg="#E8E8E8"
             width="100%"

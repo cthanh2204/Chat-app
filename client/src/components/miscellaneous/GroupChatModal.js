@@ -22,10 +22,10 @@ import UserListItem from "../User Avatar/UserListItem";
 import UserBadgeItem from "../User Avatar/UserBadgeItem";
 
 const GroupChatModal = ({ children }) => {
-  const [groupChatName, setGroupChatName] = useState();
+  const [groupChatName, setGroupChatName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [search, setSearch] = useState();
-  const [searchResult, setSearchResult] = useState();
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const { user, chat, setChat } = useContext(ChatContext);

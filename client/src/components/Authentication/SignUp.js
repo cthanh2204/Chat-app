@@ -26,50 +26,59 @@ const SignUp = () => {
   const history = useHistory();
   const { setUser } = useContext(ChatContext);
 
-  const postDetails = (pic) => {
-    setLoading(true);
-    if (pic === undefined) {
-      toast({
-        title: "Please Select an image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
-      setLoading(false);
-      return;
-    }
-    if (pic.type === "image/jpeg" || pic.type === "image/png") {
-      const formData = new FormData();
-      formData.append("file", pic);
-      formData.append("upload_preset", "mern-chat");
-      formData.append("cloud_name", "damqu5yjv");
-      fetch("https://api.cloudinary.com/v1_1/damqu5yjv/image/upload", {
-        method: "post",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setPic(data.url.toString());
-          console.log(data.url.toString());
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
-    } else {
-      toast({
-        title: "Please Select a valid image (JPEG or PNG)!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
-      setLoading(false);
-      return;
-    }
+  // const postDetails = (pic) => {
+  //   setLoading(true);
+  //   if (pic === undefined) {
+  //     toast({
+  //       title: "Please Select an image!",
+  //       status: "warning",
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: "top-right",
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
+  //   if (pic.type === "image/jpeg" || pic.type === "image/png") {
+  //     const formData = new FormData();
+  //     formData.append("file", pic);
+  //     formData.append("upload_preset", "mern-chat");
+  //     formData.append("cloud_name", "damqu5yjv");
+  //     fetch("https://api.cloudinary.com/v1_1/damqu5yjv/image/upload", {
+  //       method: "post",
+  //       body: formData,
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setPic(data.url.toString());
+  //         console.log(data.url.toString());
+  //         setLoading(false);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     toast({
+  //       title: "Please Select a valid image (JPEG or PNG)!",
+  //       status: "warning",
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: "top-right",
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
+  // };
+
+  const uploadImage = async (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPic(reader.result);
+    };
   };
+
   const submitHandler = async () => {
     setLoading(true);
     if (!name || !email || !password || !confirmPassword) {
@@ -194,7 +203,7 @@ const SignUp = () => {
           type="file"
           p={1.5}
           accept="image/"
-          onChange={(e) => postDetails(e.target.files[0])}></Input>
+          onChange={(e) => uploadImage(e.target.files[0])}></Input>
       </FormControl>
 
       <Button
