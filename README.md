@@ -29,5 +29,5 @@
 ```
 
 ## Demo
-https://chat-app-xnxc.onrender.com/
+https://chat-app-xnxc.onrender.com
 
