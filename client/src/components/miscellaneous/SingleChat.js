@@ -184,15 +184,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               onClick={() => setSelectedChat(null)}
             />
             {!selectedChat.isGroupChat ? (
-              <>
-                {getSenderName(user, selectedChat.users)}
-                <ProfileModal user={getFullSender(user, selectedChat.users)}>
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-eye"
-                    style={{ cursor: "pointer" }}
-                  />
-                </ProfileModal>
-              </>
+              <>{getSenderName(user, selectedChat.users)}</>
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}{" "}

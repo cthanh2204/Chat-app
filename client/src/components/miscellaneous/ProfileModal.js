@@ -80,7 +80,7 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
             </ModalBody>
           ) : (
             <>
-              <ModalHeader>{userDetail.name}</ModalHeader>
+              <ModalHeader>{userDetail?.name}</ModalHeader>
               <ModalCloseButton />
               <ModalBody
                 display="flex"
@@ -88,7 +88,7 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
                 alignItems="center"
                 flexDirection="column">
                 <img
-                  src={userDetail.pic}
+                  src={userDetail?.pic}
                   style={{
                     borderRadius: "50%",
                     width: "200px",
@@ -96,9 +96,9 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
                   }}
                   alt="#"
                 />
-                <Text fontSize="2xl">Email: {userDetail.email}</Text>
+                <Text fontSize="2xl">Email: {userDetail?.email}</Text>
 
-                <FormControl id="first-name" isRequired>
+                <FormControl id="name" isRequired>
                   <FormLabel>Name</FormLabel>
                   <Input
                     placeholder="Enter your name"

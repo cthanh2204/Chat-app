@@ -9,7 +9,7 @@ const ChatPage = () => {
   const [fetchChat, setFetchChat] = useState();
 
   return (
-    <div style={{ width: "100%" }}>
+    <Box style={{ width: "100%" }}>
       {user && <SideBar />}
       <Box
         display="flex"
@@ -24,7 +24,7 @@ const ChatPage = () => {
           <ChatBox fetchAgain={fetchChat} setFetchAgain={setFetchChat} />
         )}
       </Box>
-    </div>
+    </Box>
   );
 };
 

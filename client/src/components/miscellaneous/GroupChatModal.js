@@ -30,10 +30,16 @@ const GroupChatModal = ({ children }) => {
   const toast = useToast();
   const { user, chat, setChat } = useContext(ChatContext);
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const handleSearch = async (query) => {
-    setSearch(query);
-    if (!query) {
-      return;
+  const handleSearch = async () => {
+    if (!search) {
+      return toast({
+        title: "An error occurred.",
+        description: "Please enter a user to search",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "top-left",
+      });
     }
     try {
       setLoading(true);
@@ -50,7 +56,6 @@ const GroupChatModal = ({ children }) => {
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
-      setSearchResult();
       toast({
         title: "An error occurred.",
         description: error.message || "Unable to search user.",
@@ -119,8 +124,8 @@ const GroupChatModal = ({ children }) => {
     } catch (error) {
       toast({
         title: "An Error Occured",
-        description: error.message || "Created failed",
-        status: "success",
+        description: error.response.data.message || "Created failed",
+        status: "warning",
         duration: 5000,
         isClosable: true,
         position: "top-left",
@@ -151,8 +156,11 @@ const GroupChatModal = ({ children }) => {
               <FormLabel>Add User</FormLabel>
               <Input
                 placeholder="Add some users"
-                onChange={(e) => handleSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
+              <Button onClick={handleSearch} my={2}>
+                Search
+              </Button>
             </FormControl>
 
             {selectedUsers?.map((user) => {
