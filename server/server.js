@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const { connectDB } = require("./config/db");
 const userRoute = require("./routes/userRoute");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
-const authorizeToken = require("./middleware/authenToken");
 const chatRoute = require("./routes/chatRoute");
 const bodyParser = require("body-parser");
 const messageRoute = require("./routes/messageRoute");
@@ -18,16 +17,15 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(notFound);
-
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 app.use(errorHandler);
+// app.use(notFound);
 // Deployment
 const __dirname1 = path.resolve();
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "")));
+  app.use(express.static(path.join(__dirname1, "/client/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname1, "client", "build", "index.html"));
   });
@@ -36,8 +34,8 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running successfully");
   });
 }
-const PORT = process.env.PORT || 5000;
 // Deployment
+const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, console.log(`Server start on port ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
