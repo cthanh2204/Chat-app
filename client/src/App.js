@@ -1,5 +1,5 @@
 import "./App.css";
-import "./fontawesome";
+import "./fontawesome.js";
 import { Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ChatPage from "./Pages/ChatPage";
