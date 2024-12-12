@@ -9,6 +9,7 @@ const chatRoute = require("./routes/chatRoute");
 const bodyParser = require("body-parser");
 const messageRoute = require("./routes/messageRoute");
 const cors = require("cors");
+const path = require("path");
 dotenv.config();
 connectDB();
 const app = express();
@@ -18,13 +19,25 @@ app.use(express.urlencoded({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(notFound);
-app.use(errorHandler);
 
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
+app.use(errorHandler);
+// Deployment
+const __dirname1 = path.resolve();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname1, "frontend"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running successfully");
+  });
+}
 const PORT = process.env.PORT || 5000;
-
+// Deployment
 const server = app.listen(PORT, console.log(`Server start on port ${PORT}`));
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
