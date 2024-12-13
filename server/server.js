@@ -17,14 +17,13 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-  res.send("Api is running...");
-});
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 app.use(errorHandler);
-// app.use(notFound);
+app.get("/", (req, res) => {
+  res.send("Api is running");
+});
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, console.log(`Server start on port ${PORT}`));

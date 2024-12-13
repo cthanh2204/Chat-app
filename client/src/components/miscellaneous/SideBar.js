@@ -74,7 +74,7 @@ function SideBar() {
       };
 
       const { data } = await axios.get(
-        `api/users?search_name=${search}`,
+        `/api/users?search_name=${search}`,
         config
       );
 
