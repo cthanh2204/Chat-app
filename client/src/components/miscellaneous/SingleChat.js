@@ -17,7 +17,7 @@ import ScrollAbleChat from "../User Avatar/ScrollAbleChat";
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import animationData from "../../animations/typing.json";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://chat-app-85qz.onrender.com";
 let socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -65,7 +65,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       };
 
       const { data } = await axios.get(
-        `/api/messages/${selectedChat._id}`,
+        `https://chat-app-85qz.onrender.com/api/messages/${selectedChat._id}`,
         config
       );
       setMessages(data);
@@ -97,7 +97,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         setNewMessage("");
         const { data } = await axios.post(
-          "/api/messages/",
+          "https://chat-app-85qz.onrender.com/api/messages/",
           {
             content: newMessage,
             chatId: selectedChat._id,

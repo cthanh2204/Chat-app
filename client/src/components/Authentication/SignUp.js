@@ -107,7 +107,7 @@ const SignUp = () => {
 
     try {
       const { data } = await axios.post(
-        "/api/users/",
+        "https://chat-app-85qz.onrender.com/api/users/",
         {
           name,
           email,

@@ -23,7 +23,10 @@ function MyChats({ fetchAgain, setFetchAgain }) {
         },
       };
 
-      const { data } = await axios.get("/api/chats", config);
+      const { data } = await axios.get(
+        "https://chat-app-85qz.onrender.com/api/chats",
+        config
+      );
       setChat(data);
       setLoading(false);
     } catch (error) {

@@ -51,7 +51,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
         },
       };
       const { data } = await axios.put(
-        "/api/chats/group-remove",
+        "https://chat-app-85qz.onrender.com/api/chats/group-remove",
         {
           chatId: selectedChat._id,
           userId: delUser._id,
@@ -96,7 +96,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
       };
 
       const { data } = await axios.put(
-        "/api/chats/rename-group",
+        "https://chat-app-85qz.onrender.com/api/chats/rename-group",
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -136,7 +136,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
         },
       };
 
-      const { data } = await axios.get(`/api/users`, config);
+      const { data } = await axios.get(
+        `https://chat-app-85qz.onrender.com/api/users`,
+        config
+      );
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -185,7 +188,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessage }) => {
       };
 
       const { data } = await axios.post(
-        "/api/chats/group-add",
+        "https://chat-app-85qz.onrender.com/api/chats/group-add",
         {
           chatId: selectedChat._id,
           userId: addUser._id,

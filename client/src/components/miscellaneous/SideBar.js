@@ -74,7 +74,7 @@ function SideBar() {
       };
 
       const { data } = await axios.get(
-        `/api/users?search_name=${search}`,
+        `https://chat-app-85qz.onrender.com/api/users?search_name=${search}`,
         config
       );
 
@@ -123,7 +123,11 @@ function SideBar() {
         },
       };
 
-      const { data } = await axios.post("/api/chats", { userId: id }, config);
+      const { data } = await axios.post(
+        "https://chat-app-85qz.onrender.com/api/chats",
+        { userId: id },
+        config
+      );
       if (!chat.find((c) => c._id === data._id)) {
         setChat([data, ...chat]);
       }
@@ -152,7 +156,10 @@ function SideBar() {
             Authorization: `Bearer ${user.accessToken}`,
           },
         };
-        const { data } = await axios.get("/api/users/detail", config);
+        const { data } = await axios.get(
+          "https://chat-app-85qz.onrender.com/api/users/detail",
+          config
+        );
         setUserDetail(data);
         setLoading(false);
       } catch (error) {

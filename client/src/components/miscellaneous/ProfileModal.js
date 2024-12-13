@@ -42,7 +42,7 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
         },
       };
       const { data } = await axios.put(
-        "/api/users/edit",
+        "https://chat-app-85qz.onrender.com/api/users/edit",
         { name, pic },
         config
       );
