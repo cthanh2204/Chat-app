@@ -29,5 +29,13 @@
 ```
 
 ## Demo
+<p>If you don't want to sign up, you can log in with this account</p>
+
+
+```bash
+  user: guest@guest.com
+  password: guest
+```
+
 https://chat-app-xnxc.onrender.com
 
