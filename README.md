@@ -37,5 +37,4 @@
   password: guest
 ```
 
-https://chat-l85wezb0y-cthanh2204s-projects.vercel.app
-
+https://chat-app-84gx.vercel.app/
