@@ -37,5 +37,5 @@
   password: guest
 ```
 
-https://chat-app-xnxc.onrender.com
+https://chat-l85wezb0y-cthanh2204s-projects.vercel.app
 
