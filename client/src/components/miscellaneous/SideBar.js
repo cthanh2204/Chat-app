@@ -28,8 +28,6 @@ import axios from "axios";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "../User Avatar/UserListItem";
 import { getSenderName } from "../../config/chatLogics";
-import { Effect } from "react-notification-badge";
-import NotificationBadge from "react-notification-badge/lib/components/NotificationBadge";
 function SideBar() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -203,10 +201,6 @@ function SideBar() {
               colorScheme="teal"
               variant="solid"
               style={{ marginRight: "5px" }}>
-              <NotificationBadge
-                count={notifications.length}
-                effect={Effect.SCALE}
-              />
               <FontAwesomeIcon icon="fa-solid fa-bell" />
             </MenuButton>
             <MenuList>
