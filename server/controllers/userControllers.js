@@ -24,7 +24,12 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const picURL = await cloudinary.uploader.upload(pic);
-  const user = await User.create({ name, email, password, pic: picURL?.url });
+  const user = await User.create({
+    name,
+    email,
+    password,
+    pic: picURL?.url,
+  });
   if (user) {
     res.json({
       _id: user._id,

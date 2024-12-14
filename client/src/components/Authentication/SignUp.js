@@ -81,7 +81,7 @@ const SignUp = () => {
 
   const submitHandler = async () => {
     setLoading(true);
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !password || !confirmPassword || pic === "") {
       toast({
         title: "Please fill all the field",
         status: "warning",
