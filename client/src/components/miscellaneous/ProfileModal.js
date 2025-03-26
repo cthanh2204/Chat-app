@@ -22,6 +22,7 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userName, setUserName] = useState("");
   const [userPic, setUserPic] = useState("");
+  const [imageUrl, setImageUrl] = useState(undefined);
   const toast = useToast();
 
   const uploadImage = async (file) => {
@@ -88,7 +89,7 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
                 alignItems="center"
                 flexDirection="column">
                 <img
-                  src={userDetail?.pic}
+                  src={imageUrl || userDetail?.pic}
                   style={{
                     borderRadius: "50%",
                     width: "200px",
@@ -113,7 +114,10 @@ function ProfileModal({ user, userDetail, setUserDetail, children }) {
                     type="file"
                     p={1.5}
                     accept="image/"
-                    onChange={(e) => uploadImage(e.target.files[0])}></Input>
+                    onChange={(e) => {
+                      setImageUrl(URL.createObjectURL(e.target.files[0]));
+                      uploadImage(e.target.files[0]);
+                    }}></Input>
                 </FormControl>
               </ModalBody>
               <ModalFooter>
